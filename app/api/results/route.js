@@ -1,0 +1,2 @@
+import { currentUser } from "../../../lib/auth";
+export async function POST(request) { try { const user = await currentUser(); if (!user) return Response.json({ error: "Please log in." }, { status: 401 }); const { score, total } = await request.json(); if (!Number.isInteger(score) || !Number.isInteger(total)) return Response.json({ error: "Invalid result." }, { status: 400 }); user.results.push({ score, total }); await user.save(); return Response.json({ ok: true }); } catch { return Response.json({ error: "Could not save result." }, { status: 500 }); } }

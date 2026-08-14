@@ -1,0 +1,45 @@
+
+> apptitude-web-app@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.0
+   - Local:        http://localhost:3000
+   - Network:      http://172.16.8.106:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 4.9s
+ ○ Compiling / ...
+ ✓ Compiled / in 4s (529 modules)
+ GET / 200 in 4273ms
+ ✓ Compiled in 244ms (217 modules)
+ ✓ Compiled in 248ms (217 modules)
+ ✓ Compiled in 170ms (217 modules)
+ ✓ Compiled in 3s (212 modules)
+ ✓ Compiled in 2.2s (212 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1942ms (529 modules)
+ GET / 200 in 2132ms
+ ○ Compiling /api/auth/forgot-password ...
+ ✓ Compiled /api/auth/forgot-password in 1575ms (541 modules)
+ POST /api/auth/forgot-password 200 in 2133ms
+ ○ Compiling /reset-password ...
+ ✓ Compiled /reset-password in 1085ms (565 modules)
+ GET /reset-password 200 in 1263ms
+ ✓ Compiled /api/auth/reset-password in 492ms (555 modules)
+ POST /api/auth/reset-password 400 in 22478ms
+   Reload env: .env.local
+ ✓ Compiled in 434ms (222 modules)
+   Reload env: .env.local
+ ✓ Compiled in 203ms (222 modules)
+ ✓ Compiled in 508ms (222 modules)
+ ✓ Compiled in 259ms (222 modules)
+   Reload env: .env.local
+ ✓ Compiled in 5.7s (234 modules)
+   Reload env: .env.local
+ ✓ Compiled in 3.2s (234 modules)
+   Reload env: .env.local
+ ✓ Compiled in 840ms (234 modules)
+   Reload env: .env.local
+   Reload env: .env.local
+ ✓ Compiled in 641ms (234 modules)
