@@ -1,12 +1,8 @@
 import connectDB from "../../../../lib/mongodb";
 import User from "../../../../models/User";
-import { newSessionToken, setSession } from "../../../../lib/auth";
+import { newSessionToken, publicUser, setSession } from "../../../../lib/auth";
 
 export const runtime = "nodejs";
-
-function publicUser(user) {
-  return { id: user._id, name: user.name, email: user.email };
-}
 
 export async function POST(request) {
   try {
@@ -47,11 +43,15 @@ export async function POST(request) {
     if (!user.googleId) user.googleId = googleUser.localId;
     const token = newSessionToken();
     user.sessionToken = token;
+    user.sessionProvider = "google";
     await user.save();
     await setSession(token);
     return Response.json({ user: publicUser(user) });
   } catch (error) {
     console.error("Google sign-in failed", error);
+    if (["ETIMEOUT", "ENOTFOUND", "ECONNREFUSED"].includes(error?.code)) {
+      return Response.json({ error: "Google verified your account, but the app cannot reach MongoDB Atlas. Check Atlas Network Access and your internet/DNS connection." }, { status: 503 });
+    }
     return Response.json({ error: "Google sign-in is unavailable. Please try again." }, { status: 500 });
   }
 }

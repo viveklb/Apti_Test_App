@@ -1,4 +1,6 @@
 import { currentUser } from "../../../../lib/auth";
+import connectDB from "../../../../lib/mongodb";
+import Question from "../../../../models/Question";
 
 export const runtime = "nodejs";
 
@@ -30,9 +32,15 @@ export async function POST(request) {
     const safeCount = Number(count);
     if (!safeTopic) return Response.json({ error: "Enter a topic for your practice set." }, { status: 400 });
     if (![10, 20, 50].includes(safeCount)) return Response.json({ error: "Choose 10, 20, or 50 questions." }, { status: 400 });
+    await connectDB();
+    const exactTopic = new RegExp(`^${safeTopic.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i");
+    const importedQuestions = await Question.aggregate([{ $match: { topic: exactTopic, testDate: { $exists: false } } }, { $sample: { size: safeCount } }]);
+    const savedQuestions = importedQuestions.map(({ question, options, answer }) => ({ question, options, answer }));
+    if (savedQuestions.length === safeCount) return Response.json({ questions: savedQuestions, source: "library" });
     if (!process.env.NVIDIA_API_KEY) return Response.json({ error: "NVIDIA_API_KEY is missing. Add it to .env.local, then restart the server." }, { status: 503 });
 
-    const prompt = `Create exactly ${safeCount} accessible multiple-choice aptitude questions about "${safeTopic}" for students. Use clear, age-appropriate language and vary the difficulty from easy to medium. Return ONLY a valid JSON array with this exact shape: [{"question":"...","options":["option 1","option 2","option 3","option 4"],"answer":0}]. The answer field is the zero-based index of the correct option. Do not include Markdown, explanations, duplicate questions, or extra keys.`;
+    const generatedCount = safeCount - savedQuestions.length;
+    const prompt = `Create exactly ${generatedCount} accessible multiple-choice aptitude questions about "${safeTopic}" for students. Use clear, age-appropriate language and vary the difficulty from easy to medium. Return ONLY a valid JSON array with this exact shape: [{"question":"...","options":["option 1","option 2","option 3","option 4"],"answer":0}]. The answer field is the zero-based index of the correct option. Do not include Markdown, explanations, duplicate questions, or extra keys.`;
     const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
       method: "POST",
       headers: { "Authorization": `Bearer ${process.env.NVIDIA_API_KEY}`, "Content-Type": "application/json", "Accept": "application/json" },
@@ -44,7 +52,7 @@ export async function POST(request) {
         ],
         temperature: 0.35,
         top_p: 0.9,
-        max_tokens: Math.min(12000, safeCount * 220),
+        max_tokens: Math.min(12000, generatedCount * 220),
         stream: false
       }),
       cache: "no-store"
@@ -54,9 +62,9 @@ export async function POST(request) {
       return Response.json({ error: "Nemotron could not generate questions. Check your NVIDIA API key and model access." }, { status: 502 });
     }
     const data = await response.json();
-    const questions = cleanQuestions(extractJson(data?.choices?.[0]?.message?.content), safeCount);
-    if (!questions) return Response.json({ error: "Nemotron returned an invalid question set. Please try again." }, { status: 502 });
-    return Response.json({ questions });
+    const generatedQuestions = cleanQuestions(extractJson(data?.choices?.[0]?.message?.content), generatedCount);
+    if (!generatedQuestions) return Response.json({ error: "Nemotron returned an invalid question set. Please try again." }, { status: 502 });
+    return Response.json({ questions: [...savedQuestions, ...generatedQuestions], source: savedQuestions.length ? "library-and-ai" : "ai" });
   } catch (error) {
     console.error("Question generation failed", error);
     return Response.json({ error: "Unable to generate questions right now. Please try again." }, { status: 500 });

@@ -16,6 +16,7 @@ export async function POST(request) {
     if (!user) return Response.json({ error: "This reset link is invalid or has expired." }, { status: 400 });
     user.password = await bcrypt.hash(password, 12);
     user.sessionToken = undefined;
+    user.sessionProvider = undefined;
     user.resetTokenHash = undefined;
     user.resetTokenExpires = undefined;
     await user.save();
