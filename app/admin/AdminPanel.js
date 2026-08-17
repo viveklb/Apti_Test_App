@@ -121,7 +121,7 @@ export default function AdminPanel({ name }) {
         <h2>Excel format</h2>
         <p>Use the first worksheet and put these exact headers in row 1:</p>
         <div className={styles.columns}>{columns.map((column) => <code key={column}>{column}</code>)}</div>
-        <p>Use <b>A, B, C, D</b> or <b>1, 2, 3, 4</b> in Correct Answer. Use <b>YYYY-MM-DD</b> in Test Date and <b>HH:MM</b> (24-hour) in Test Time. Put mathematical expressions between dollar signs using LaTeX, for example <code>$2^2 \\times 3^2 \\times 5$</code>. Simple expressions such as <code>2^2 × 3^2 × 5</code> are also recognized. Repeat the same <b>Test Name</b>, date, and time for every question in one test; Topic can vary by question. You can import up to 200 rows in a file.</p>
+        <p>Use <b>A, B, C, D</b> or <b>1, 2, 3, 4</b> in Correct Answer. Use <b>YYYY-MM-DD</b> in Test Date and <b>HH:MM</b> (24-hour) in Test Time. Put mathematical expressions between dollar signs using LaTeX, for example <code>$2^2 \times 3^2 \times 5$</code>. Simple expressions such as <code>2^2 × 3^2 × 5</code> are also recognized. Repeat the same <b>Test Name</b>, date, and time for every question in one test; Topic can vary by question. You can import up to 200 rows in a file.</p>
         <a className={styles.templateButton} href="/admin-question-template.csv" download>Download Excel template</a>
         <form onSubmit={upload} className={styles.upload}>
           <input type="file" accept=".xlsx,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv" onChange={(event) => setFile(event.target.files?.[0] || null)} />

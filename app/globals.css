@@ -69,6 +69,12 @@ h2,
   transform: translateY(-1px);
 }
 
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(14, 159, 110, 0.28);
+  outline-offset: 3px;
+}
+
 .primary:disabled,
 .secondary:disabled { opacity: 0.5; cursor: not-allowed; }
 
