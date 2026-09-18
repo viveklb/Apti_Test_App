@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { currentUser, isAdmin } from "../../../../lib/auth";
 import { practiceQuestions } from "../../../../lib/questions";
+=======
+import { currentUser } from "../../../../lib/auth";
+import connectDB from "../../../../lib/mongodb";
+import Question from "../../../../models/Question";
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
 
 export const runtime = "nodejs";
 
@@ -26,19 +32,32 @@ export async function POST(request) {
   try {
     const user = await currentUser();
     if (!user) return Response.json({ error: "Please log in to generate questions." }, { status: 401 });
+<<<<<<< HEAD
     if (!isAdmin(user)) return Response.json({ error: "Question generation is available to administrators only." }, { status: 403 });
+=======
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
     const { topic, count } = await request.json();
     const safeTopic = typeof topic === "string" ? topic.trim().slice(0, 120) : "";
     const safeCount = Number(count);
     if (!safeTopic) return Response.json({ error: "Enter a topic for your practice set." }, { status: 400 });
     if (![10, 20, 50].includes(safeCount)) return Response.json({ error: "Choose 10, 20, or 50 questions." }, { status: 400 });
+<<<<<<< HEAD
     const importedQuestions = await practiceQuestions(safeTopic, safeCount);
+=======
+    await connectDB();
+    const exactTopic = new RegExp(`^${safeTopic.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i");
+    const importedQuestions = await Question.aggregate([{ $match: { topic: exactTopic, testDate: { $exists: false } } }, { $sample: { size: safeCount } }]);
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
     const savedQuestions = importedQuestions.map(({ question, options, answer }) => ({ question, options, answer }));
     if (savedQuestions.length === safeCount) return Response.json({ questions: savedQuestions, source: "library" });
     if (!process.env.NVIDIA_API_KEY) return Response.json({ error: "NVIDIA_API_KEY is missing. Add it to .env.local, then restart the server." }, { status: 503 });
 
     const generatedCount = safeCount - savedQuestions.length;
+<<<<<<< HEAD
     const prompt = `Create exactly ${generatedCount} accessible multiple-choice aptitude questions about "${safeTopic}" for students. Use clear, age-appropriate language and vary the difficulty from easy to medium. Write every mathematical expression as LaTeX enclosed in dollar delimiters, including expressions inside options (for example, $2^3 \\times 5$, $\\frac{3}{4}$, and $x^2 + 2x + 1$). Escape LaTeX backslashes correctly inside JSON strings. Return ONLY a valid JSON array with this exact shape: [{"question":"...","options":["option 1","option 2","option 3","option 4"],"answer":0}]. The answer field is the zero-based index of the correct option. Do not include explanations, duplicate questions, Markdown outside the LaTeX dollar delimiters, or extra keys.`;
+=======
+    const prompt = `Create exactly ${generatedCount} accessible multiple-choice aptitude questions about "${safeTopic}" for students. Use clear, age-appropriate language and vary the difficulty from easy to medium. Return ONLY a valid JSON array with this exact shape: [{"question":"...","options":["option 1","option 2","option 3","option 4"],"answer":0}]. The answer field is the zero-based index of the correct option. Do not include Markdown, explanations, duplicate questions, or extra keys.`;
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
     const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
       method: "POST",
       headers: { "Authorization": `Bearer ${process.env.NVIDIA_API_KEY}`, "Content-Type": "application/json", "Accept": "application/json" },

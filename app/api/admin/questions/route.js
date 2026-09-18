@@ -1,6 +1,11 @@
 import * as XLSX from "xlsx";
 import { currentUser, isAdmin } from "../../../../lib/auth";
+<<<<<<< HEAD
 import { adminTests, deleteTest, insertQuestions } from "../../../../lib/questions";
+=======
+import connectDB from "../../../../lib/mongodb";
+import Question from "../../../../models/Question";
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
 
 export const runtime = "nodejs";
 
@@ -46,7 +51,18 @@ async function adminUser() {
 export async function GET() {
   try {
     if (!await adminUser()) return Response.json({ error: "Not authorized." }, { status: 403 });
+<<<<<<< HEAD
     const tests = await adminTests();
+=======
+    await connectDB();
+    const tests = await Question.aggregate([
+      { $addFields: { groupName: { $ifNull: ["$testName", "$topic"] } } },
+      { $group: { _id: { testName: "$groupName", testDate: "$testDate", testTime: "$testTime" }, questionCount: { $sum: 1 }, createdAt: { $max: "$createdAt" } } },
+      { $project: { _id: 0, testName: "$_id.testName", testDate: "$_id.testDate", testTime: "$_id.testTime", questionCount: 1, createdAt: 1 } },
+      { $sort: { testDate: -1, testTime: -1, createdAt: -1 } },
+      { $limit: 100 }
+    ]);
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
     return Response.json({ tests });
   } catch (error) {
     console.error("Could not load admin tests", error);
@@ -91,7 +107,12 @@ export async function POST(request) {
     if (errors.length) return Response.json({ error: errors.slice(0, 5).join(" ") }, { status: 400 });
     if (questions.length > 200) return Response.json({ error: "Import no more than 200 questions at one time." }, { status: 400 });
 
+<<<<<<< HEAD
     await insertQuestions(questions);
+=======
+    await connectDB();
+    await Question.insertMany(questions);
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
     return Response.json({ imported: questions.length });
   } catch (error) {
     console.error("Question import failed", error);
@@ -108,9 +129,16 @@ export async function DELETE(request) {
     const safeTime = testTime(time);
     if (!safeName || !safeDate || !safeTime) return Response.json({ error: "Invalid test." }, { status: 400 });
 
+<<<<<<< HEAD
     const removed = await deleteTest({ testName: safeName, testDate: safeDate, testTime: safeTime });
     if (!removed) return Response.json({ error: "This test no longer exists." }, { status: 404 });
     return Response.json({ removed });
+=======
+    await connectDB();
+    const result = await Question.deleteMany({ testDate: safeDate, testTime: safeTime, $or: [{ testName: safeName }, { testName: { $exists: false }, topic: safeName }] });
+    if (!result.deletedCount) return Response.json({ error: "This test no longer exists." }, { status: 404 });
+    return Response.json({ removed: result.deletedCount });
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
   } catch (error) {
     console.error("Could not remove test", error);
     return Response.json({ error: "Could not remove this test." }, { status: 500 });

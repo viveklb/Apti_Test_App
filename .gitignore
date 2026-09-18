@@ -3,7 +3,10 @@ node_modules/
 .env.local
 .env
 npm-install*.log
+<<<<<<< HEAD
 .netlify/
 
 .vercel
 .env*
+=======
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952

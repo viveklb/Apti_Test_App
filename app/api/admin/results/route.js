@@ -1,5 +1,10 @@
 import { currentUser, isAdmin } from "../../../../lib/auth";
+<<<<<<< HEAD
 import { listResults } from "../../../../lib/results";
+=======
+import connectDB from "../../../../lib/mongodb";
+import User from "../../../../models/User";
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
 
 function dateRange(date) {
   if (!date) return null;
@@ -15,15 +20,36 @@ function csvCell(value) {
   return `"${String(value ?? "").replaceAll('"', '""')}"`;
 }
 
+<<<<<<< HEAD
+=======
+async function getResults(date) {
+  const range = dateRange(date);
+  if (range === undefined) throw new Error("Invalid date.");
+  const match = range ? { "results.completedAt": { $gte: range.start, $lt: range.end } } : {};
+  return User.aggregate([
+    { $unwind: "$results" },
+    { $match: match },
+    { $project: { _id: 0, studentName: "$name", studentEmail: "$email", topic: "$results.topic", score: "$results.score", total: "$results.total", scheduledFor: "$results.scheduledFor", completedAt: "$results.completedAt" } },
+    { $sort: { completedAt: -1, studentName: 1 } },
+    { $limit: 1000 }
+  ]);
+}
+
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
 export async function GET(request) {
   try {
     if (!isAdmin(await currentUser())) return Response.json({ error: "Not authorized." }, { status: 403 });
     const { searchParams } = new URL(request.url);
     const date = searchParams.get("date") || "";
     const format = searchParams.get("format");
+<<<<<<< HEAD
     const range = dateRange(date);
     if (range === undefined) throw new Error("Invalid date.");
     const results = await listResults(range);
+=======
+    await connectDB();
+    const results = await getResults(date);
+>>>>>>> ef788fe01a1d17d8bcc59fe0fa60605201f93952
 
     if (format === "csv") {
       const rows = [["Date", "Time", "Student", "Email", "Test", "Score", "Total", "Percentage"]];

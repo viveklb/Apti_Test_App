@@ -1,0 +1,103 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.8.0
+2 info using node@v24.13.1
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\Office\Documents\ChatGPT\Apptitude web app\.npmrc
+5 silly config load:file:C:\Users\Office\.npmrc
+6 silly config load:file:C:\Users\Office\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm ci
+8 verbose argv "ci" "--cache" ".npm-cache" "--no-audit" "--no-fund"
+9 verbose logfile logs-max:10 dir:C:\Users\Office\Documents\ChatGPT\Apptitude web app\.npm-cache\_logs\2026-08-14T07_01_22_456Z-
+10 verbose logfile C:\Users\Office\Documents\ChatGPT\Apptitude web app\.npm-cache\_logs\2026-08-14T07_01_22_456Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2348810240 maxSize:587202560 maxEntrySize:293601280
+13 silly idealTree buildDeps
+14 silly reify moves {}
+15 http cache whatwg-url@https://registry.npmjs.org/whatwg-url/-/whatwg-url-14.2.0.tgz 1ms (cache hit)
+16 http cache webidl-conversions@https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-7.0.0.tgz 0ms (cache hit)
+17 http cache tslib@https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz 0ms (cache hit)
+18 http cache tr46@https://registry.npmjs.org/tr46/-/tr46-5.1.1.tgz 0ms (cache hit)
+19 http cache styled-jsx@https://registry.npmjs.org/styled-jsx/-/styled-jsx-5.1.6.tgz 0ms (cache hit)
+20 http cache sparse-bitfield@https://registry.npmjs.org/sparse-bitfield/-/sparse-bitfield-3.0.3.tgz 0ms (cache hit)
+21 http cache source-map-js@https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.1.tgz 0ms (cache hit)
+22 http cache sharp@https://registry.npmjs.org/sharp/-/sharp-0.34.5.tgz 0ms (cache hit)
+23 http cache sift@https://registry.npmjs.org/sift/-/sift-17.1.3.tgz 0ms (cache hit)
+24 http cache semver@https://registry.npmjs.org/semver/-/semver-7.8.5.tgz 0ms (cache hit)
+25 http cache scheduler@https://registry.npmjs.org/scheduler/-/scheduler-0.27.0.tgz 0ms (cache hit)
+26 http cache react-dom@https://registry.npmjs.org/react-dom/-/react-dom-19.2.8.tgz 0ms (cache hit)
+27 http cache punycode@https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz 0ms (cache hit)
+28 http cache react@https://registry.npmjs.org/react/-/react-19.2.8.tgz 0ms (cache hit)
+29 http cache picocolors@https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz 0ms (cache hit)
+30 http cache postcss@https://registry.npmjs.org/postcss/-/postcss-8.4.31.tgz 0ms (cache hit)
+31 http cache next@https://registry.npmjs.org/next/-/next-15.5.23.tgz 0ms (cache hit)
+32 http cache nanoid@https://registry.npmjs.org/nanoid/-/nanoid-3.3.18.tgz 0ms (cache hit)
+33 http cache ms@https://registry.npmjs.org/ms/-/ms-2.1.3.tgz 0ms (cache hit)
+34 http cache mquery@https://registry.npmjs.org/mquery/-/mquery-5.0.0.tgz 0ms (cache hit)
+35 http cache mpath@https://registry.npmjs.org/mpath/-/mpath-0.9.0.tgz 0ms (cache hit)
+36 http cache mongodb@https://registry.npmjs.org/mongodb/-/mongodb-6.20.0.tgz 0ms (cache hit)
+37 http cache mongodb-connection-string-url@https://registry.npmjs.org/mongodb-connection-string-url/-/mongodb-connection-string-url-3.0.2.tgz 0ms (cache hit)
+38 http cache mongoose@https://registry.npmjs.org/mongoose/-/mongoose-8.24.3.tgz 0ms (cache hit)
+39 http cache memory-pager@https://registry.npmjs.org/memory-pager/-/memory-pager-1.5.0.tgz 0ms (cache hit)
+40 http cache @types/whatwg-url@https://registry.npmjs.org/@types/whatwg-url/-/whatwg-url-11.0.5.tgz 0ms (cache hit)
+41 http cache detect-libc@https://registry.npmjs.org/detect-libc/-/detect-libc-2.1.2.tgz 0ms (cache hit)
+42 http cache kareem@https://registry.npmjs.org/kareem/-/kareem-2.6.3.tgz 0ms (cache hit)
+43 http cache client-only@https://registry.npmjs.org/client-only/-/client-only-0.0.1.tgz 0ms (cache hit)
+44 http cache debug@https://registry.npmjs.org/debug/-/debug-4.4.3.tgz 0ms (cache hit)
+45 http cache caniuse-lite@https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001809.tgz 0ms (cache hit)
+46 http cache @types/webidl-conversions@https://registry.npmjs.org/@types/webidl-conversions/-/webidl-conversions-7.0.3.tgz 0ms (cache hit)
+47 http cache bson@https://registry.npmjs.org/bson/-/bson-6.10.4.tgz 0ms (cache hit)
+48 http cache @swc/helpers@https://registry.npmjs.org/@swc/helpers/-/helpers-0.5.15.tgz 0ms (cache hit)
+49 http cache bcryptjs@https://registry.npmjs.org/bcryptjs/-/bcryptjs-2.4.3.tgz 0ms (cache hit)
+50 http cache @next/env@https://registry.npmjs.org/@next/env/-/env-15.5.23.tgz 0ms (cache hit)
+51 http cache @mongodb-js/saslprep@https://registry.npmjs.org/@mongodb-js/saslprep/-/saslprep-1.4.13.tgz 0ms (cache hit)
+52 http cache @next/swc-win32-x64-msvc@https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-15.5.23.tgz 0ms (cache hit)
+53 http cache @img/colour@https://registry.npmjs.org/@img/colour/-/colour-1.1.0.tgz 0ms (cache hit)
+54 http cache @img/sharp-win32-x64@https://registry.npmjs.org/@img/sharp-win32-x64/-/sharp-win32-x64-0.34.5.tgz 0ms (cache hit)
+55 info run sharp@0.34.5 install node_modules/sharp node install/check.js || npm run build
+56 info run sharp@0.34.5 install { code: 0, signal: null }
+57 silly ADD node_modules/whatwg-url
+58 silly ADD node_modules/webidl-conversions
+59 silly ADD node_modules/tslib
+60 silly ADD node_modules/tr46
+61 silly ADD node_modules/styled-jsx
+62 silly ADD node_modules/sparse-bitfield
+63 silly ADD node_modules/source-map-js
+64 silly ADD node_modules/sift
+65 silly ADD node_modules/sharp
+66 silly ADD node_modules/semver
+67 silly ADD node_modules/scheduler
+68 silly ADD node_modules/react-dom
+69 silly ADD node_modules/react
+70 silly ADD node_modules/punycode
+71 silly ADD node_modules/postcss
+72 silly ADD node_modules/picocolors
+73 silly ADD node_modules/next
+74 silly ADD node_modules/nanoid
+75 silly ADD node_modules/ms
+76 silly ADD node_modules/mquery
+77 silly ADD node_modules/mpath
+78 silly ADD node_modules/mongoose
+79 silly ADD node_modules/mongodb-connection-string-url
+80 silly ADD node_modules/mongodb
+81 silly ADD node_modules/memory-pager
+82 silly ADD node_modules/kareem
+83 silly ADD node_modules/detect-libc
+84 silly ADD node_modules/debug
+85 silly ADD node_modules/client-only
+86 silly ADD node_modules/caniuse-lite
+87 silly ADD node_modules/bson
+88 silly ADD node_modules/bcryptjs
+89 silly ADD node_modules/@types/whatwg-url
+90 silly ADD node_modules/@types/webidl-conversions
+91 silly ADD node_modules/@swc/helpers
+92 silly ADD node_modules/@next/swc-win32-x64-msvc
+93 silly ADD node_modules/@next/env
+94 silly ADD node_modules/@mongodb-js/saslprep
+95 silly ADD node_modules/@img/sharp-win32-x64
+96 silly ADD node_modules/@img/colour
+97 verbose cwd C:\Users\Office\Documents\ChatGPT\Apptitude web app
+98 verbose os Windows_NT 10.0.26200
+99 verbose node v24.13.1
+100 verbose npm  v11.8.0
+101 verbose exit 0
+102 info ok
